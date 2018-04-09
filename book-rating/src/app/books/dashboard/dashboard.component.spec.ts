@@ -6,21 +6,21 @@ import { Component, Input, NO_ERRORS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'br-book',
-  template: `{{ b | json }}`
+  template: `{{ book | json }}`
 })
 class DummyBookComponent {
-  @Input() b: Book;
+  @Input() book: Book;
 }
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
+  let element: HTMLElement;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
         declarations: [DashboardComponent, DummyBookComponent]
-        // schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
   );
@@ -28,11 +28,19 @@ describe('DashboardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
-    component.books = [{}, {}] as Book[];
+    element = fixture.nativeElement;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
     expect(() => fixture.detectChanges()).not.toThrow();
+  });
+
+  it('should display books', () => {
+    fixture.detectChanges();
+    // component.books = [{}, {}] as Book[];
+    const bookElements = element.querySelectorAll('br-book');
+    expect(bookElements).toBeTruthy();
+    expect(bookElements.length).toEqual(4);
   });
 });
