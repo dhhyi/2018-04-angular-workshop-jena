@@ -1,0 +1,10 @@
+<div *ngIf="books && books.length">Anzahl Bücher: {{ books.length }}</div>
+<div *ngIf="!books || books.length === 0">Keine Bücher vorhanden!</div>
+
+<br-book *ngFor="let book of books" [book]="book"></br-book>
+
+<!--<ul>
+  <li *ngFor="let b of books; index as i; odd as o; even as e; trackBy: trackBook" [class.odd]="!o" [class.even]="!e">
+    {{ i + 1 }} - {{ b.title }}
+  </li>
+</ul>-->
