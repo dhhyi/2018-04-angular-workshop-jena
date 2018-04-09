@@ -4,4 +4,5 @@ export interface Book {
   author: string;
   rating: number;
   description: string;
+  price: number;
 }

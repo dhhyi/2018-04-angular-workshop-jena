@@ -20,28 +20,24 @@ export class DashboardComponent implements OnInit {
         title: 'Buch1',
         author: 'Author1',
         rating: 2,
-        description: 'desc1'
+        description: 'desc1',
+        price: 14.99
       },
       {
         isbn: '67890',
         title: 'Buch2',
         author: 'Author2',
         rating: 4,
-        description: 'desc2'
+        description: 'desc2',
+        price: 13.65
       },
       {
         isbn: '6789',
         title: 'Buch3',
         author: 'Author3',
         rating: 1,
-        description: 'desc3'
-      },
-      {
-        isbn: '678546',
-        title: 'Buch4',
-        author: 'Author4',
-        rating: 3,
-        description: 'desc4'
+        description: 'desc3',
+        price: 20
       }
     ];
   }

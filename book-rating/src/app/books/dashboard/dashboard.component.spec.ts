@@ -41,6 +41,6 @@ describe('DashboardComponent', () => {
     // component.books = [{}, {}] as Book[];
     const bookElements = element.querySelectorAll('br-book');
     expect(bookElements).toBeTruthy();
-    expect(bookElements.length).toEqual(4);
+    expect(bookElements.length).toEqual(3);
   });
 });
