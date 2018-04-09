@@ -1,8 +1,10 @@
 import { Book } from './../../shared/book';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { instance, mock, when } from 'ts-mockito';
 import { DashboardComponent } from './dashboard.component';
 import { Component, Input, NO_ERRORS_SCHEMA } from '@angular/core';
+import { BookStoreService } from '../shared/book-store.service';
+import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'br-book',
@@ -19,8 +21,12 @@ describe('DashboardComponent', () => {
 
   beforeEach(
     async(() => {
+      const bookStoreServiceMock = mock(BookStoreService);
+      when(bookStoreServiceMock.view()).thenReturn(of([{}, {}] as Book[]));
+
       TestBed.configureTestingModule({
-        declarations: [DashboardComponent, DummyBookComponent]
+        declarations: [DashboardComponent, DummyBookComponent],
+        providers: [{ provide: BookStoreService, useFactory: () => instance(bookStoreServiceMock) }]
       }).compileComponents();
     })
   );
@@ -38,9 +44,8 @@ describe('DashboardComponent', () => {
 
   it('should display books', () => {
     fixture.detectChanges();
-    // component.books = [{}, {}] as Book[];
     const bookElements = element.querySelectorAll('br-book');
     expect(bookElements).toBeTruthy();
-    expect(bookElements.length).toEqual(3);
+    expect(bookElements.length).toEqual(2);
   });
 });
