@@ -1,7 +1,7 @@
 import { BookHelper } from './book.helper';
 import { Book } from './book';
 
-fdescribe('Book Helper', () => {
+describe('Book Helper', () => {
   describe('rateUpPossible', () => {
     it('should return true when rating is 4', () => {
       const book = { rating: 4 } as Book;
