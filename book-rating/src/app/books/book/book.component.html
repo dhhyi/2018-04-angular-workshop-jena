@@ -10,7 +10,7 @@
         </span>
       </h2>
     </div>
-    <h6 class="card-subtitle mb-2 text-muted">{{ book.author }}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">{{ book.authors | json }}</h6>
     <p class="description">{{ book.description }}</p>
     <p class="price float-bottom">{{ book.price | currency:'EUR' }}</p>
   </div>

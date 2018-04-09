@@ -1,7 +1,7 @@
 export interface Book {
   isbn: string;
   title: string;
-  author: string;
+  authors: string[];
   rating: number;
   description: string;
   price: number;
