@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { BookHelper } from './../../shared/book.helper';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { Book } from '../../shared/book';
 
 @Component({
@@ -8,12 +9,21 @@ import { Book } from '../../shared/book';
 })
 export class BookComponent implements OnChanges {
   @Input() book: Book;
+  @Output() bookChange: EventEmitter<Book> = new EventEmitter();
 
   ratingArray = [];
-  rating: number;
 
   ngOnChanges() {
-    this.rating = Math.round(this.book.rating);
-    this.ratingArray = new Array(this.rating);
+    this.ratingArray = new Array(this.book.rating);
+  }
+
+  rateUp() {
+    const newBook = BookHelper.rateUp(this.book);
+    this.bookChange.emit(newBook);
+  }
+
+  rateDown() {
+    const newBook = BookHelper.rateDown(this.book);
+    this.bookChange.emit(newBook);
   }
 }

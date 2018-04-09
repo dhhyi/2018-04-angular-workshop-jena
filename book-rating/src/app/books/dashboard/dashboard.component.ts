@@ -30,19 +30,24 @@ export class DashboardComponent implements OnInit {
         description: 'desc2'
       },
       {
-        isbn: '678',
+        isbn: '6789',
         title: 'Buch3',
         author: 'Author3',
-        rating: 4.9,
+        rating: 1,
         description: 'desc3'
       },
       {
         isbn: '678546',
         title: 'Buch4',
         author: 'Author4',
-        rating: 3.1,
+        rating: 3,
         description: 'desc4'
       }
     ];
+  }
+
+  bookChange(book: Book) {
+    const index = this.books.findIndex(b => b.isbn === book.isbn);
+    this.books[index] = book;
   }
 }
