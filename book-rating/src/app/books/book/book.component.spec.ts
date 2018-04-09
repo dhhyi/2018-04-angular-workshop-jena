@@ -1,6 +1,6 @@
 import { Book } from './../../shared/book';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { spy, verify } from 'ts-mockito';
 import { BookComponent } from './book.component';
 
 describe('BookComponent', () => {
@@ -64,25 +64,25 @@ describe('BookComponent', () => {
 
   it('should call rateUp when rate-up button is clicked', () => {
     fixture.detectChanges();
-    const spy = spyOn(component, 'rateUp');
+    const compSpy = spy(component);
 
-    expect(spy).not.toHaveBeenCalled();
+    verify(compSpy.rateUp()).never();
 
     const rateUpButton = element.querySelector('button.testing-rate-up') as HTMLButtonElement;
     rateUpButton.click();
 
-    expect(spy).toHaveBeenCalled();
+    verify(compSpy.rateUp()).once();
   });
 
   it('should call rateDown when rate-down button is clicked', () => {
     fixture.detectChanges();
-    const spy = spyOn(component, 'rateDown');
+    const compSpy = spy(component);
 
-    expect(spy).not.toHaveBeenCalled();
+    verify(compSpy.rateDown()).never();
 
     const rateDownButton = element.querySelector('button.testing-rate-down') as HTMLButtonElement;
     rateDownButton.click();
 
-    expect(spy).toHaveBeenCalled();
+    verify(compSpy.rateDown()).once();
   });
 });
