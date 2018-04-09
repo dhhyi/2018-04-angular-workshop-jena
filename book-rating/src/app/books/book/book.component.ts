@@ -1,11 +1,20 @@
 import { BookHelper } from './../../shared/book.helper';
-import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  EventEmitter,
+  Output,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { Book } from '../../shared/book';
 
 @Component({
   selector: 'br-book',
   styles: ['.description { font-style: italic }'],
-  templateUrl: './book.component.html'
+  templateUrl: './book.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookComponent implements OnChanges {
   @Input() book: Book;
@@ -25,5 +34,13 @@ export class BookComponent implements OnChanges {
   rateDown() {
     const newBook = BookHelper.rateDown(this.book);
     this.bookChange.emit(newBook);
+  }
+
+  rateUpPossible(): boolean {
+    return BookHelper.rateUpPossible(this.book);
+  }
+
+  rateDownPossible(): boolean {
+    return BookHelper.rateDownPossible(this.book);
   }
 }

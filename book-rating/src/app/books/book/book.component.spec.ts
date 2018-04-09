@@ -1,3 +1,4 @@
+import { Book } from './../../shared/book';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookComponent } from './book.component';
@@ -17,10 +18,11 @@ describe('BookComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BookComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    component.book = {} as Book;
   });
 
   it('should create', () => {
+    expect(() => fixture.detectChanges()).not.toThrow();
     expect(component).toBeTruthy();
   });
 });
