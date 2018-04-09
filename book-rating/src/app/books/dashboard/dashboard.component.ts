@@ -46,8 +46,17 @@ export class DashboardComponent implements OnInit {
     ];
   }
 
+  get sortedView(): Book[] {
+    // return this.books.sort((b1, b2) => b2.rating - b1.rating);
+    return [...this.books].sort((b1, b2) => b1.title.localeCompare(b2.title));
+  }
+
   bookChange(book: Book) {
-    const index = this.books.findIndex(b => b.isbn === book.isbn);
-    this.books[index] = book;
+    // const index = this.books.findIndex(b => b.isbn === book.isbn);
+    // const newArray = [...this.books];
+    // newArray[index] = book;
+    // this.books = newArray;
+
+    this.books = [...this.books.filter(b => b.isbn !== book.isbn), book];
   }
 }
