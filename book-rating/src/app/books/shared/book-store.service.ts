@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class BookStoreService {
   private books$: BehaviorSubject<Book[]> = new BehaviorSubject([]);
+  private api = 'http://api.angular.schule';
 
   constructor(private http: HttpClient) {
     // this.books$ = new BehaviorSubject([
@@ -38,14 +39,24 @@ export class BookStoreService {
     //     price: 20
     //   }
     // ]);
-    const subscription = this.http
-      .get<Book[]>('http://api.angular.schule/books')
-      .subscribe(books => this.books$.next(books));
+    const subscription = this.getAll().subscribe(books => this.books$.next(books));
   }
 
   view(): Observable<Book[]> {
     // return this.books.sort((b1, b2) => b2.rating - b1.rating);
     return this.books$.pipe(map(books => books.sort((b1, b2) => b1.title.localeCompare(b2.title))));
+  }
+
+  getAll(): Observable<Book[]> {
+    return this.http.get<Book[]>(`${this.api}/books`);
+  }
+
+  getSingle(isbn: string): Observable<Book> {
+    return this.http.get<Book>(`${this.api}/book/${isbn}`);
+  }
+
+  create(book: Book): Observable<any> {
+    return this.http.post(`${this.api}/book`, book, { responseType: 'text' });
   }
 
   changeBook(book: Book) {
