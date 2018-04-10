@@ -1,5 +1,5 @@
 import { BookHelper } from '../../shared/book.helper';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Book } from '../../shared/book';
 import { BookStoreService } from '../shared/book-store.service';
 import { Observable } from 'rxjs/Observable';
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
   selector: 'br-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
   trackBook = BookHelper.trackBook;
