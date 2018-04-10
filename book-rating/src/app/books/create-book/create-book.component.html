@@ -25,4 +25,8 @@
   </div>
 </form>
 
+<ul>
+  <li *ngFor="let r of results$ | async">{{ r.title }}</li>
+</ul>
+
 <pre>{{ bookForm.valueChanges | async | json }}</pre>

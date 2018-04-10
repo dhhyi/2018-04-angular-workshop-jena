@@ -1,4 +1,11 @@
-import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  ChangeDetectionStrategy,
+  OnDestroy,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Book } from '../../shared/book';
 import {
@@ -11,8 +18,11 @@ import {
   delay,
   tap,
   concatMap,
+  takeUntil,
 } from 'rxjs/operators';
 import { BookStoreService } from '../shared/book-store.service';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'br-create-book',
@@ -20,10 +30,13 @@ import { BookStoreService } from '../shared/book-store.service';
   styleUrls: ['./create-book.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateBookComponent implements OnInit {
+export class CreateBookComponent implements OnInit, OnDestroy {
   @Output() private bookChange = new EventEmitter<Book>();
 
   bookForm: FormGroup;
+  results$: Observable<Book[]>;
+
+  destroy$ = new Subject();
 
   constructor(private bookStoreService: BookStoreService) {}
 
@@ -38,17 +51,19 @@ export class CreateBookComponent implements OnInit {
       description: new FormControl(''),
     });
 
-    this.bookForm.valueChanges
-      .pipe(
-        map((book: Book) => book.title),
-        filter((title: string) => title.length > 2),
-        distinctUntilChanged(),
-        debounceTime(500),
-        tap(console.log),
-        switchMap((term: string) => this.bookStoreService.search(term)),
-        map((books: Book[]) => JSON.stringify(books)),
-      )
-      .subscribe(console.log);
+    this.results$ = this.bookForm.valueChanges.pipe(
+      takeUntil(this.destroy$),
+      map((book: Book) => book.title),
+      filter((title: string) => title.length > 2),
+      distinctUntilChanged(),
+      debounceTime(500),
+      switchMap((term: string) => this.bookStoreService.search(term)),
+    );
+    this.results$.subscribe(() => {}, console.log, console.log);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
   }
 
   submitForm() {

@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Book } from '../../shared/book';
 import { Observable } from 'rxjs/observable';
 import { of } from 'rxjs/observable/of';
-import { map } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
+import { map, catchError } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient } from '@angular/common/http';
@@ -56,7 +57,9 @@ export class BookStoreService {
   }
 
   search(searchTerm: string): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.api}/books/search/${searchTerm}`);
+    return this.http
+      .get<Book[]>(`${this.api}/books/search/${searchTerm}`)
+      .pipe(catchError(() => _throw([{ isbn: '1', title: 'Fehlerbuch' } as Book])));
   }
 
   getSingle(isbn: string): Observable<Book> {
@@ -64,10 +67,7 @@ export class BookStoreService {
   }
 
   create(book: Book) {
-    this.http.post(`${this.api}/book`, book).subscribe(() => {
-      // this.books$.next([...this.books$.value, re]);
-      this.update();
-    });
+    this.http.post(`${this.api}/book`, book).subscribe(() => this.update());
   }
 
   changeBook(book: Book) {
