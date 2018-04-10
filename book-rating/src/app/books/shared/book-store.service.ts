@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Book } from '../../shared/book';
-import { Observable } from 'rxjs/observable';
 import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
 import { map, catchError } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/observable';
 
 @Injectable()
 export class BookStoreService {
@@ -49,7 +49,9 @@ export class BookStoreService {
 
   view(): Observable<Book[]> {
     // return this.books.sort((b1, b2) => b2.rating - b1.rating);
-    return this.books$.pipe(map(books => books.sort((b1, b2) => b1.title.localeCompare(b2.title))));
+    return this.books$.pipe(
+      map(books => books.sort((b1, b2) => b1.title.localeCompare(b2.title))),
+    );
   }
 
   getAll(): Observable<Book[]> {
@@ -59,7 +61,9 @@ export class BookStoreService {
   search(searchTerm: string): Observable<Book[]> {
     return this.http
       .get<Book[]>(`${this.api}/books/search/${searchTerm}`)
-      .pipe(catchError(() => _throw([{ isbn: '1', title: 'Fehlerbuch' } as Book])));
+      .pipe(
+        catchError(() => _throw([{ isbn: '1', title: 'Fehlerbuch' } as Book])),
+      );
   }
 
   getSingle(isbn: string): Observable<Book> {
@@ -76,6 +80,9 @@ export class BookStoreService {
     // newArray[index] = book;
     // this.books = newArray;
 
-    this.books$.next([...this.books$.value.filter(b => b.isbn !== book.isbn), book]);
+    this.books$.next([
+      ...this.books$.value.filter(b => b.isbn !== book.isbn),
+      book,
+    ]);
   }
 }

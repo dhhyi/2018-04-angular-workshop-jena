@@ -3,7 +3,9 @@
     <img class="img-thumbnail float-right" src="http://api.angular.schule/avatar/{{ book.rating }}">
     <div class="card-title">
       <h2>
-        <span class="title">{{ book.title }}</span>
+        <a [routerLink]="[ '/book', book.isbn ]">
+          <span class="title">{{ book.title }}</span>
+        </a>
         <span class="badge badge-secondary">
           <img class="rating" *ngFor="let x of ratingArray" src="http://www.i2clipart.com/cliparts/2/f/c/7/clipart-cat-line-art-2fc7.png"
             width="20">

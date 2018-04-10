@@ -25,7 +25,12 @@ describe('DashboardComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [DashboardComponent, DummyBookComponent],
-      providers: [{ provide: BookStoreService, useFactory: () => instance(bookStoreServiceMock) }],
+      providers: [
+        {
+          provide: BookStoreService,
+          useFactory: () => instance(bookStoreServiceMock),
+        },
+      ],
     }).compileComponents();
   }));
 

@@ -68,7 +68,9 @@ describe('BookComponent', () => {
 
       verify(compSpy.rateUp()).never();
 
-      const rateUpButton = element.querySelector('button.testing-rate-up') as HTMLButtonElement;
+      const rateUpButton = element.querySelector(
+        'button.testing-rate-up',
+      ) as HTMLButtonElement;
       rateUpButton.click();
 
       verify(compSpy.rateUp()).once();
@@ -80,7 +82,9 @@ describe('BookComponent', () => {
 
       verify(compSpy.rateDown()).never();
 
-      const rateDownButton = element.querySelector('button.testing-rate-down') as HTMLButtonElement;
+      const rateDownButton = element.querySelector(
+        'button.testing-rate-down',
+      ) as HTMLButtonElement;
       rateDownButton.click();
 
       verify(compSpy.rateDown()).once();

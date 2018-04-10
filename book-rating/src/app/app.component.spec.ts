@@ -35,6 +35,8 @@ describe('AppComponent', () => {
 
   it(`should have title 'Book Rating'`, () => {
     fixture.detectChanges();
-    expect(element.querySelector('h1').textContent.trim()).toEqual('Book Rating');
+    expect(element.querySelector('h1').textContent.trim()).toEqual(
+      'Book Rating',
+    );
   });
 });
