@@ -8,20 +8,20 @@ describe('BookStoreService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [BookStoreService]
+      providers: [BookStoreService],
     });
     service = TestBed.get(BookStoreService);
     service.books$.next([
       {
         isbn: '1',
         title: 't1',
-        rating: 3
+        rating: 3,
       },
       {
         isbn: '2',
         title: 't2',
-        rating: 2
-      }
+        rating: 2,
+      },
     ] as Book[]);
   });
 
@@ -50,7 +50,7 @@ describe('BookStoreService', () => {
       service.changeBook({
         isbn: '1',
         title: 't1',
-        rating: 1
+        rating: 1,
       } as Book);
       expect(books[0].rating).toEqual(1);
     });

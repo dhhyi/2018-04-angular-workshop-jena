@@ -8,7 +8,7 @@ import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'br-book',
-  template: `{{ book | json }}`
+  template: `{{ book | json }}`,
 })
 class DummyBookComponent {
   @Input() book: Book;
@@ -19,17 +19,15 @@ describe('DashboardComponent', () => {
   let fixture: ComponentFixture<DashboardComponent>;
   let element: HTMLElement;
 
-  beforeEach(
-    async(() => {
-      const bookStoreServiceMock = mock(BookStoreService);
-      when(bookStoreServiceMock.view()).thenReturn(of([{}, {}] as Book[]));
+  beforeEach(async(() => {
+    const bookStoreServiceMock = mock(BookStoreService);
+    when(bookStoreServiceMock.view()).thenReturn(of([{}, {}] as Book[]));
 
-      TestBed.configureTestingModule({
-        declarations: [DashboardComponent, DummyBookComponent],
-        providers: [{ provide: BookStoreService, useFactory: () => instance(bookStoreServiceMock) }]
-      }).compileComponents();
-    })
-  );
+    TestBed.configureTestingModule({
+      declarations: [DashboardComponent, DummyBookComponent],
+      providers: [{ provide: BookStoreService, useFactory: () => instance(bookStoreServiceMock) }],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);

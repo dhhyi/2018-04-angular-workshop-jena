@@ -19,7 +19,7 @@ export class AppPage {
       title: book.$('span.title').getText(),
       rating: book.$$('img.rating').count(),
       rateUp: book.$('button.testing-rate-up'),
-      rateDown: book.$('button.testing-rate-down')
+      rateDown: book.$('button.testing-rate-down'),
     };
   }
 }

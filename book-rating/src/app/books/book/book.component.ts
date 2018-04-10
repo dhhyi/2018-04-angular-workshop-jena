@@ -6,7 +6,7 @@ import {
   OnChanges,
   EventEmitter,
   Output,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Book } from '../../shared/book';
 
@@ -14,7 +14,7 @@ import { Book } from '../../shared/book';
   selector: 'br-book',
   styles: ['.description { font-style: italic }'],
   templateUrl: './book.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookComponent implements OnChanges {
   @Input() book: Book;

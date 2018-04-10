@@ -11,13 +11,11 @@ describe('BookComponent', () => {
   let book: Book;
 
   describe('normal configuration', () => {
-    beforeEach(
-      async(() => {
-        TestBed.configureTestingModule({
-          declarations: [BookComponent]
-        }).compileComponents();
-      })
-    );
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        declarations: [BookComponent],
+      }).compileComponents();
+    }));
 
     beforeEach(() => {
       fixture = TestBed.createComponent(BookComponent);
@@ -26,7 +24,7 @@ describe('BookComponent', () => {
       book = {
         title: 'booktitle',
         description: 'bookdesc',
-        rating: 3
+        rating: 3,
       } as Book;
       component.book = book;
     });
@@ -90,17 +88,15 @@ describe('BookComponent', () => {
   });
 
   describe('default change detection', () => {
-    beforeEach(
-      async(() => {
-        TestBed.configureTestingModule({
-          declarations: [BookComponent]
-        })
-          .overrideComponent(BookComponent, {
-            set: { changeDetection: ChangeDetectionStrategy.Default }
-          })
-          .compileComponents();
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        declarations: [BookComponent],
       })
-    );
+        .overrideComponent(BookComponent, {
+          set: { changeDetection: ChangeDetectionStrategy.Default },
+        })
+        .compileComponents();
+    }));
 
     beforeEach(() => {
       fixture = TestBed.createComponent(BookComponent);
@@ -109,7 +105,7 @@ describe('BookComponent', () => {
       book = {
         title: 'booktitle',
         description: 'bookdesc',
-        rating: 3
+        rating: 3,
       } as Book;
       component.book = book;
     });

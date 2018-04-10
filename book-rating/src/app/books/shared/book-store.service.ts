@@ -39,7 +39,11 @@ export class BookStoreService {
     //     price: 20
     //   }
     // ]);
-    const subscription = this.getAll().subscribe(books => this.books$.next(books));
+    this.update();
+  }
+
+  private update() {
+    this.getAll().subscribe(books => this.books$.next(books));
   }
 
   view(): Observable<Book[]> {
@@ -55,8 +59,11 @@ export class BookStoreService {
     return this.http.get<Book>(`${this.api}/book/${isbn}`);
   }
 
-  create(book: Book): Observable<any> {
-    return this.http.post(`${this.api}/book`, book, { responseType: 'text' });
+  create(book: Book) {
+    this.http.post(`${this.api}/book`, book).subscribe(() => {
+      // this.books$.next([...this.books$.value, re]);
+      this.update();
+    });
   }
 
   changeBook(book: Book) {

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'br-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
   trackBook = BookHelper.trackBook;
@@ -16,6 +16,10 @@ export class DashboardComponent {
 
   get sortedView(): Observable<Book[]> {
     return this.booksStoreService.view();
+  }
+
+  bookCreate(book: Book) {
+    this.booksStoreService.create(book);
   }
 
   bookChange(book: Book) {

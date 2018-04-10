@@ -1,10 +1,15 @@
-<div *ngIf="books && books.length">Anzahl Bücher: {{ books.length }}</div>
-<div *ngIf="!books || books.length === 0">Keine Bücher vorhanden!</div>
+<br-create-book (bookChange)="bookCreate($event)"></br-create-book>
+<hr/>
 
-<br-book *ngFor="let book of (sortedView | async)" [book]="book" (bookChange)="bookChange($event)"></br-book>
+<ng-container *ngIf="(sortedView | async) as books">
+  <div *ngIf="books && books.length">Anzahl Bücher: {{ books.length }}</div>
+  <div *ngIf="!books || books.length === 0">Keine Bücher vorhanden!</div>
 
-<!--<ul>
-  <li *ngFor="let b of books; index as i; odd as o; even as e; trackBy: trackBook" [class.odd]="!o" [class.even]="!e">
-    {{ i + 1 }} - {{ b.title }}
-  </li>
-</ul>-->
+  <br-book *ngFor="let book of books" [book]="book" (bookChange)="bookChange($event)"></br-book>
+
+  <!--<ul>
+    <li *ngFor="let b of books; index as i; odd as o; even as e; trackBy: trackBook" [class.odd]="!o" [class.even]="!e">
+      {{ i + 1 }} - {{ b.title }}
+    </li>
+  </ul>-->
+</ng-container>

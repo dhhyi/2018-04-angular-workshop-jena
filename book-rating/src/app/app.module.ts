@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [AppComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, BooksModule],
   providers: [{ provide: LOCALE_ID, useValue: 'de' }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor() {
